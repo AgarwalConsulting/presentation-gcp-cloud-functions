@@ -6,7 +6,7 @@ layout: true
 
 class: center, middle
 
-# {title}
+# GCP Cloud Functions
 
 Gaurav Agarwal
 
@@ -44,7 +44,7 @@ func main() {
 class: center, middle
 
 Code
-https://github.com/algogrit/presentation-template
+https://github.com/algogrit/presentation-gcp-cloud-functions
 
 Slides
-https://template.slides.algogrit.com
+https://gcp-cloud-functions.slides.algogrit.com
