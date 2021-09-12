@@ -304,11 +304,16 @@ Deploy as a JAR!
 .content-credits[https://cloud.google.com/functions/docs/concepts/java-deploy]
 
 ---
-class: center, middle
+
+- Building the Jar
 
 ```bash
 mvn clean package
+```
 
+- Deploying the JAR
+
+```bash
 gcloud functions deploy fn-from-jar \
     --entry-point=com.algogrit.app.HelloHttp \
     --runtime=java11 \
