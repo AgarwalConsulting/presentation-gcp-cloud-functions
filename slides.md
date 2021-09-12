@@ -304,6 +304,36 @@ Deploy as a JAR!
 .content-credits[https://cloud.google.com/functions/docs/concepts/java-deploy]
 
 ---
+class: center, middle
+
+```xml
+<plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-shade-plugin</artifactId>
+  <executions>
+    <execution>
+      <phase>package</phase>
+      <goals><goal>shade</goal></goals>
+      <configuration>
+        <outputFile>${project.build.directory}/deployment/${build.finalName}.jar</outputFile>
+        <transformers>
+          <!-- This may be needed if you need to shade a signed JAR -->
+          <transformer implementation="org.apache.maven.plugins.shade.resource.DontIncludeResourceTransformer">
+            <resource>.SF</resource>
+            <resource>.DSA</resource>
+            <resource>.RSA</resource>
+          </transformer>
+          <!-- This is needed if you have dependencies that use Service Loader. Most Google Cloud client libraries does. -->
+          <transformer implementation=
+"org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+        </transformers>
+      </configuration>
+    </execution>
+  </executions>
+</plugin>
+```
+
+---
 
 - Building the Jar
 
