@@ -174,7 +174,7 @@ class: center, middle
 ---
 class: center, middle
 
-*Demo*: Defining and deploying a HTTP based function from local
+*Demo*: Deploying a HTTP based function from local
 
 ---
 class: center, middle
