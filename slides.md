@@ -267,13 +267,6 @@ class: center, middle
 ---
 class: center, middle
 
-*Exercise*: [Define and run functions locally and deploy](https://github.com/AgarwalConsulting/gcp-training/blob/master/challenges/gcf/01-first-function.md)
-
-.content-credits[https://cloud.google.com/functions/docs/first-java]
-
----
-class: center, middle
-
 Running your Java functions locally...
 
 .content-credits[https://cloud.google.com/functions/docs/running/function-frameworks#functions-local-ff-configure-java]
@@ -302,6 +295,13 @@ class: center, middle
 Invoking locally
 
 .content-credits[https://cloud.google.com/functions/docs/running/calling]
+
+---
+class: center, middle
+
+*Exercise*: [Define and run functions locally and deploy](https://github.com/AgarwalConsulting/gcp-training/blob/master/challenges/gcf/01-first-function.md)
+
+.content-credits[https://cloud.google.com/functions/docs/first-java]
 
 ---
 class: center, middle
