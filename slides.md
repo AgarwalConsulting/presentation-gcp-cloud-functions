@@ -267,7 +267,7 @@ class: center, middle
 ---
 class: center, middle
 
-*Exercise*: [Define and run functions locally](https://github.com/AgarwalConsulting/gcp-training/blob/master/challenges/gcf/01-first-function.md)
+*Exercise*: [Define and run functions locally and deploy](https://github.com/AgarwalConsulting/gcp-training/blob/master/challenges/gcf/01-first-function.md)
 
 .content-credits[https://cloud.google.com/functions/docs/first-java]
 
@@ -617,6 +617,11 @@ curl localhost:8080 \
 ```
 
 .content-credits[https://cloud.google.com/functions/docs/running/calling#background-function-curl-tabs-storage]
+
+---
+class: center, middle
+
+*Exercise*: [Read and encrypt files uploaded to GCS](https://github.com/AgarwalConsulting/gcp-training/blob/master/challenges/gcf/02-file-encryption.md)
 
 ---
 class: center, middle
