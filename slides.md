@@ -755,6 +755,22 @@ gcloud compute networks vpc-access connectors create CONNECTOR_NAME \
 
 ---
 
+- `CONNECTOR_NAME`: a name for your connector. This must be in accordance with the Compute Engine naming convention.
+
+- `REGION`: a region for your connector; this must match the region of your serverless service. If your service is in the region us-central or europe-west, use us-central1 or europe-west1.
+
+- `SUBNET`: your own `'/28'` dedicated subnet that is not used by any other resource; the value to be supplied is name of the subnet
+
+- `HOST_PROJECT_ID`: the ID of the host project; supply this only if you are using Shared VPC
+
+- `MIN`: the minimum number of instances to use for the connector. Use an integer between 2 and 10. Default is 2.
+
+- `MAX`: the maximum number of instances to use for the connector. Use an integer between 2 and 10. Default is 10. If traffic requires it, the connector scales out to `[MAX]` instances, but does not scale back in.
+
+- `MACHINE_TYPE`: `f1-micro`, `e2-micro`, or `e2-standard-4`
+
+---
+
 There are two options for setting the IP address range for a connector:
 
 - Subnet: You can specify an existing /28 subnet if there are no resources already using the subnet.
