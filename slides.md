@@ -822,6 +822,20 @@ Cloud Functions network settings enable you to control network ingress and egres
 
 ---
 
+Use cases:
+
+- Creating a function that cannot be called by external clients
+
+- Routing function egress through your VPC network
+
+- Associating function egress with a static IP address
+
+- Multi-region load balancing
+
+.content-credits[https://cloud.google.com/functions/docs/networking/network-settings#examples]
+
+---
+
 #### Java Frameworks supporting Google Cloud Functions
 
 - [Spring](https://docs.spring.io/spring-cloud-function/docs/current/reference/html/gcp.html#_project_dependencies)
