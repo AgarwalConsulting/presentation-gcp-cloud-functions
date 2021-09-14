@@ -896,7 +896,9 @@ class: center, middle
 ---
 class: center, middle
 
-`go install github.com/GoogleCloudPlatform/functions-framework-go/funcframework`
+```bash
+go install github.com/GoogleCloudPlatform/functions-framework-go/funcframework
+```
 
 .content-credits[https://github.com/GoogleCloudPlatform/functions-framework-go]
 
