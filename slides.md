@@ -906,6 +906,8 @@ go install github.com/GoogleCloudPlatform/functions-framework-go/funcframework
 class: center, middle
 
 `funcframework.RegisterHTTPFunctionContext`
+`funcframework.RegisterEventFunctionContext`
+`funcframework.RegisterCloudEventFunctionContext`
 
 ---
 class: center, middle
