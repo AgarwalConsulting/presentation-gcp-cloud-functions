@@ -428,6 +428,10 @@ Programmatic Access:
 
 - [Java library](https://cloud.google.com/storage/docs/reference/libraries)
 
+- [Go library](https://pkg.go.dev/cloud.google.com/go/storage)
+
+.content-credits[https://cloud.google.com/storage/docs/reference/libraries]
+
 ---
 class: center, middle
 
@@ -626,6 +630,24 @@ class: center, middle
 ---
 class: center, middle
 
+#### CloudEvent functions
+
+.content-credits[https://cloud.google.com/functions/docs/writing/cloudevents]
+
+---
+class: center, middle
+
+A CloudEvent function is one type of event-driven function. CloudEvent functions are invoked indirectly in response to events, such as a message on a Pub/Sub topic, a change in a Cloud Storage bucket, or a Firebase event.
+
+---
+
+- Conceptually similar to background functions.
+
+- The principal difference between the two is that CloudEvent functions use an industry-standard event format known as [CloudEvents](https://cloudevents.io/).
+
+---
+class: center, middle
+
 #### Testing
 
 .content-credits[https://cloud.google.com/functions/docs/testing/test-basics]
@@ -649,6 +671,20 @@ Types of Testing:
 ---
 class: center, middle
 
+Unit Testing HTTP functions
+
+.content-credits[https://cloud.google.com/functions/docs/testing/test-http#unit_tests]
+
+---
+class: center, middle
+
+Integration Testing Background functions
+
+.content-credits[https://cloud.google.com/functions/docs/testing/test-event#integration_tests_2]
+
+---
+class: center, middle
+
 #### Networking
 
 .content-credits[https://cloud.google.com/functions/docs/networking/connecting-vpc]
@@ -656,16 +692,117 @@ class: center, middle
 ---
 class: center, middle
 
-#### Security
+##### Serverless VPC Access
 
-.content-credits[https://cloud.google.com/functions/docs/securing]
+.content-credits[https://cloud.google.com/vpc/docs/serverless-vpc-access]
+
+---
+class: center, middle
+
+Serverless VPC Access makes it possible for you to connect directly to your Virtual Private Cloud network from serverless environments such as Cloud Run, App Engine, or Cloud Functions.
+
+Configuring Serverless VPC Access allows your serverless environment to send requests to your VPC network using internal DNS and internal IP addresses.
+
+.content-credits[https://console.cloud.google.com/apis/api/vpcaccess.googleapis.com/overview]
+
+---
+class: center, middle
+
+![Serverless VPC Access](assets/images/serverless-vpc-access.png)
 
 ---
 
-There are two approaches to controlling access for Cloud Functions:
+There are two main benefits to using Serverless VPC Access:
 
-- Identity-based
-- Network-based
+- Requests sent to your VPC network are never exposed to the internet.
+
+- Communication through Serverless VPC Access can have less latency compared to the internet.
+
+---
+
+- Serverless VPC Access is based on a resource called a connector.
+
+- A connector handles traffic between your serverless environment and your VPC network.
+
+- When you create a connector in your Google Cloud project, you attach it to a specific VPC network and region.
+
+- You can then configure your serverless services to use the connector for outbound network traffic.
+
+---
+class: center, middle
+
+You can enforce a VPC connector for Cloud Functions with a organization level policy: `constraints/cloudfunctions.requireVPCConnector`.
+
+.content-credits[https://cloud.google.com/resource-manager/docs/organization-policy/org-policy-constraints#available_constraints]
+
+---
+class: center, middle
+
+Create a connector
+
+```bash
+gcloud compute networks vpc-access connectors create CONNECTOR_NAME \
+  --region REGION \
+  --subnet SUBNET \
+  # If you are not using Shared VPC, omit the following line.
+  --subnet-project HOST_PROJECT_ID \
+  # Optional: specify minimum and maximum instance values between 2 and 10, default is 2 min, 10 max.
+  --min-instances MIN \
+  --max-instances MAX \
+  # Optional: specify machine type, default is e2-micro
+  --machine-type MACHINE_TYPE
+```
+
+---
+
+There are two options for setting the IP address range for a connector:
+
+- Subnet: You can specify an existing /28 subnet if there are no resources already using the subnet.
+
+- CIDR range: You can specify an unused /28 CIDR range. Make sure that the range doesn't overlap with any in-use CIDR ranges.
+Traffic sent through the connector into your VPC network originates from the subnet or CIDR range that you specify.
+
+---
+class: center, middle
+
+Verify if connector is ready
+
+```bash
+gcloud compute networks vpc-access connectors describe CONNECTOR_NAME \
+--region REGION
+```
+
+---
+
+For Cloud Functions:
+
+- Expand the advanced settings by clicking RUNTIME, BUILD AND CONNECTIONS SETTINGS.
+
+- In the Connections tab under Egress settings, enter the name of your connector in the VPC connector field, or clear the field to disconnect your service from a VPC network.
+
+---
+class: center, middle
+
+VPC Connector flag for `gcloud functions deploy`
+
+`--vpc-connector CONNECTOR_NAME`
+
+---
+class: center, middle
+
+Use the `--clear-vpc-connector` flag to to disconnect your function from a VPC network
+
+---
+
+Cloud Functions network settings enable you to control network ingress and egress to and from individual functions. For example, you can use network settings for the following use cases:
+
+- Secure your functions by implementing network-based access control.
+
+- Make a function's egress traffic adhere to firewall, DNS, and routing rules associated with your VPC network.
+
+- Associate a function's egress traffic with a static IP address.
+
+.content-credits[https://cloud.google.com/functions/docs/networking/network-settings]
 
 ---
 
@@ -683,14 +820,187 @@ class: center, middle
 ### Developing functions in: *Go*
 
 ---
+
+#### [Go Fundamentals](https://go-fundamentals.slides.algogrit.com/)
+
+- Variables / Functions
+
+- Package / `go mod`
+
+- Loops
+
+- Slices / Maps
+
+- Structs
+
+- Methods / Interfaces
+
+.content-credits[http://why-go.slides.algogrit.com/]
+
+---
+class: center, middle
+
+#### Go HTTP functions
+
+---
+class: center, middle
+
+`net/http`
+
+.content-credits[https://golang.org/pkg/net/http/]
+
+---
+class: center, middle
+
+```golang
+type HandlerFunc func(ResponseWriter, *Request)
+```
+
+.content-credits[https://pkg.go.dev/net/http#HandlerFunc]
+
+---
+class: center, middle
+
+#### Running locally
+
+---
+class: center, middle
+
+`go install github.com/GoogleCloudPlatform/functions-framework-go/funcframework`
+
+.content-credits[https://github.com/GoogleCloudPlatform/functions-framework-go]
+
+---
+class: center, middle
+
+`funcframework.RegisterHTTPFunctionContext`
+
+---
+class: center, middle
+
+#### Security
+
+.content-credits[https://cloud.google.com/functions/docs/securing]
+
+---
+class: center, middle
+
+#### Authorization
+
+---
+
+- [Basic Auth](https://github.com/AgarwalConsulting/Go-Training/blob/master/examples/11-A-01-net/auth/basic/main.go#L12)
+
+- [JWT](https://github.com/golang-jwt/jwt)
+
+---
+
+There are two approaches to controlling access for Cloud Functions:
+
+- Identity-based
+
+- Network-based
+
+---
+class: center, middle
+
+##### Identity-based
+
+---
+class: center, middle
+
+```bash
+gcloud functions get-iam-policy FUNCTION_NAME
+
+gcloud functions add-iam-policy-binding FUNCTION_NAME \
+  --member=MEMBER_ID \
+  --role=ROLE
+
+gcloud functions remove-iam-policy-binding FUNCTION_NAME \
+  --member=MEMBER_ID \
+  --role=ROLE
+```
+
+---
+class: center, middle
+
+Authentication for invoking
+
+```bash
+curl https://REGION-PROJECT_ID.cloudfunctions.net/FUNCTION_NAME \
+  -H "Authorization: bearer $(gcloud auth print-identity-token)"
+```
+
+---
+class: center, middle
+
+Authenticating function to function calls
+
+```bash
+gcloud functions add-iam-policy-binding RECEIVING_FUNCTION \
+  --member='serviceAccount:CALLING_FUNCTION_IDENTITY' \
+  --role='roles/cloudfunctions.invoker'
+```
+
+---
+class: center, middle
+
+[Generating tokens manually](https://cloud.google.com/functions/docs/securing/authenticating?authuser=2#generating_tokens_manually)
+
+---
+class: center, middle
+
+##### Network-based
+
+---
+class: center, middle
+
+Restrict allowed ingress settings
+
+```bash
+gcloud resource-manager org-policies allow \
+  cloudfunctions.allowedIngressSettings ALLOW_INTERNAL_ONLY \
+  --organization ORGANIZATION_ID
+```
+
+.content-credits[https://cloud.google.com/functions/docs/securing/using-vpc-service-controls]
+
+---
 class: center, middle
 
 ### Cloud Run
 
 ![Cloud Run](assets/images/cloud-run.png)
 
+.content-credits[https://cloud.google.com/run/docs]
+
+---
+class: center, middle
+
+Cloud Run is a managed compute platform that enables you to run containers that are invocable via requests or events. Cloud Run is serverless: it abstracts away all infrastructure management, so you can focus on what matters most — building great applications.
+
+.content-credits[https://cloud.google.com/run/docs/setup]
+
 ---
 
+Code requirements:
+
+- The service must listen for requests. You can configure the port on which requests are sent. Inside Cloud Run container instances, the value of the PORT environment variable always reflects the port to which requests are sent. Your code should check for the existence of this PORT environment variable and if it is present, should listen on it to maximize portability.
+
+- The service must be stateless. It cannot rely on a persistent local state.
+
+- The service must not perform background activities outside the scope of request handling.
+
+.content-credits[https://cloud.google.com/run/docs/developing]
+
+---
+class: center, middle
+
+To deploy to Cloud Run, you need to provide a container image.
+
+.content-credits[https://cloud.google.com/run/docs/building/containers]
+
+---
 class: center, middle
 
 Code
