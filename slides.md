@@ -386,29 +386,6 @@ class: center, middle
 ---
 class: center, middle
 
-#### Environment Variables
-
-.content-credits[https://cloud.google.com/functions/docs/configuring/env-var]
-
----
-
-Predefined environment variables:
-
-- `FUNCTION_TARGET`: The function to be executed.
-
-- `FUNCTION_SIGNATURE_TYPE`: The type of the function: http for HTTP functions, and event for event-driven functions.
-
-- `K_SERVICE`: The name of the function resource.
-
-- `K_REVISION`: The version identifier of the function.
-
-- `PORT`: The port over which the function is invoked.
-
-.content-credits[https://cloud.google.com/functions/docs/configuring/env-var#newer_runtimes]
-
----
-class: center, middle
-
 ![Cloud Storage](assets/images/cloud-storage.png)
 
 #### Cloud Storage
@@ -1002,6 +979,117 @@ gcloud resource-manager org-policies allow \
 ---
 class: center, middle
 
+#### Environment Variables
+
+.content-credits[https://cloud.google.com/functions/docs/configuring/env-var]
+
+---
+class: center, middle
+
+Setting env variables individually: `--set-env-vars FOO=bar,BAZ=boo`
+
+---
+class: center, middle
+
+Setting env variables from a file: `--env-vars-file .env.yaml`
+
+---
+
+Other operations on Environment Variables:
+
+- `--update-env-vars FOO=notbar`
+
+- `--remove-env-vars FOO,BAZ`
+
+- `--clear-env-vars`
+
+---
+
+Predefined environment variables:
+
+- `FUNCTION_TARGET`: The function to be executed.
+
+- `FUNCTION_SIGNATURE_TYPE`: The type of the function: http for HTTP functions, and event for event-driven functions.
+
+- `K_SERVICE`: The name of the function resource.
+
+- `K_REVISION`: The version identifier of the function.
+
+- `PORT`: The port over which the function is invoked.
+
+.content-credits[https://cloud.google.com/functions/docs/configuring/env-var#newer_runtimes]
+
+---
+class: center, middle
+
+#### Scaling Functions
+
+---
+class: center, middle
+
+##### Setting maximum instances
+
+`--max-instances`
+
+---
+
+Why Maximum Instances?
+
+- limit requests to throughput-constrained or unscalable downstream services
+
+- improves overall system stability and helps guard against abnormally high request levels
+
+.content-credits[https://cloud.google.com/functions/docs/configuring/max-instances]
+
+---
+class: center, middle
+
+Cloud Functions attempts to serve a new inbound request for up to 30 seconds
+
+---
+class: center, middle
+
+In some cases, such as rapid traffic surges, Cloud Functions might, for a short period of time, create more instances than the specified maximum instances limit.
+
+.content-credits[https://cloud.google.com/functions/docs/configuring/max-instances#handling_traffic_spikes]
+
+---
+class: center, middle
+
+Setting maximum instances to 0 results in clearing existing maximum instances limits.
+
+---
+class: center, middle
+
+##### Setting minimum instances (Pre-GA)
+
+`--min-instances`
+
+---
+
+Why minimum instances?
+
+- Each function instances can handle only one request at a time
+
+- large spikes in request volume often cause longer wait times as new instances are created to handle the demand
+
+- function sometimes initializes the execution environment from scratch, which is called a *cold start*
+
+.content-credits[https://cloud.google.com/functions/docs/configuring/min-instances]
+
+---
+class: center, middle
+
+Setting a minimum number of instances incurs cost.
+
+---
+class: center, middle
+
+Use `--clear-min-instances` flag to clear
+
+---
+class: center, middle
+
 ### Cloud Run
 
 ![Cloud Run](assets/images/cloud-run.png)
@@ -1033,6 +1121,23 @@ class: center, middle
 To deploy to Cloud Run, you need to provide a container image.
 
 .content-credits[https://cloud.google.com/run/docs/building/containers]
+
+---
+class: center, middle
+
+*Demo*: Deploying to Cloud run
+
+---
+class: center, middle
+
+#### Eventarc
+
+.content-credits[https://www.infoq.com/news/2021/01/google-cloud-eventarc-ga/]
+
+---
+class: center, middle
+
+Eventarc lets you asynchronously deliver events from Google services, SaaS, and your own apps using loosely coupled services that react to state changes.
 
 ---
 class: center, middle
