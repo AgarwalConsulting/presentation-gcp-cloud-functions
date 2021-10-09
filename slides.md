@@ -1022,6 +1022,18 @@ Predefined environment variables:
 ---
 class: center, middle
 
+#### Secret Manager
+
+.content-credits[https://cloud.google.com/functions/docs/configuring/secrets]
+
+---
+class: center, middle
+
+Secret Manager stores API keys, passwords, certificates, and other sensitive data.
+
+---
+class: center, middle
+
 #### Scaling Functions
 
 ---
@@ -1118,6 +1130,11 @@ Code requirements:
 ---
 class: center, middle
 
+*Demo*: Deploying to Cloud run *from source*
+
+---
+class: center, middle
+
 To deploy to Cloud Run, you need to provide a container image.
 
 .content-credits[https://cloud.google.com/run/docs/building/containers]
@@ -1125,7 +1142,14 @@ To deploy to Cloud Run, you need to provide a container image.
 ---
 class: center, middle
 
-*Demo*: Deploying to Cloud run
+Functions Framework *refresher*
+
+![Runtime layers](assets/images/functions-layers.svg)
+
+---
+class: center, middle
+
+*Demo*: Deploying to Cloud run *from container*
 
 ---
 class: center, middle
@@ -1138,6 +1162,54 @@ class: center, middle
 class: center, middle
 
 Eventarc lets you asynchronously deliver events from Google services, SaaS, and your own apps using loosely coupled services that react to state changes.
+
+---
+class: center, middle
+
+![Eventarc](assets/images/eventarc.png)
+
+.image-credits[https://codelabs.developers.google.com/codelabs/cloud-run-events#1]
+
+---
+class: center, middle
+
+Current State
+
+![Eventarc - current state](assets/images/eventarc-current.png)
+
+.image-credits[https://codelabs.developers.google.com/codelabs/cloud-run-events#2]
+
+---
+class: center, middle
+
+Events are normalized to [CloudEvents v1.0](https://cloudevents.io/) format for cross-service interoperability. CloudEvents is a vendor-neutral open spec describing event data in common formats, enabling interoperability across services, platforms and systems.
+
+.content-credits[https://codelabs.developers.google.com/codelabs/cloud-run-events#1]
+
+---
+class: center, middle
+
+## Comparison
+
+---
+class: center, middle
+
+### Cloud Functions vs Cloud Run
+
+---
+class: center, middle
+
+### Cloud Functions vs App Engine
+
+---
+class: center, middle
+
+### Cloud Functions vs GKE
+
+---
+class: center, middle
+
+### Cloud Functions vs Compute Engine
 
 ---
 class: center, middle
