@@ -1214,6 +1214,61 @@ class: center, middle
 ---
 class: center, middle
 
+## [GCP & Persistence](https://gcf-and-persistence.slides.agarwalconsulting.io/)
+
+---
+class: center, middle
+
+## [Cloud Pub/Sub](https://gcp-pubsub.slides.agarwalconsulting.io/)
+
+---
+class: center, middle
+
+## Optimizing Cloud Functions
+
+---
+class: center, middle
+
+### Cold vs Warm Starts
+
+---
+class: center, middle
+
+### Compute time
+
+---
+class: center, middle
+
+## Best Practices
+
+---
+class: center, middle
+
+### Tips & Tricks
+
+---
+class: center, middle
+
+### Retrying event-driven functions
+
+---
+class: center, middle
+
+### Optimizing networking
+
+---
+class: center, middle
+
+## Chosing the right language
+
+---
+class: center, middle
+
+Go vs Java
+
+---
+class: center, middle
+
 Code
 https://github.com/algogrit/presentation-gcp-cloud-functions
 
