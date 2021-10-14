@@ -1232,9 +1232,70 @@ class: center, middle
 ### Cold vs Warm Starts
 
 ---
+
+A new function instance is started in two cases:
+
+- When you deploy your function.
+
+- When a new function instance is automatically created to scale up to the load, or occasionally to replace an existing instance.
+
+---
+
+- Starting a new function instance involves loading the runtime and your code.
+
+- Requests that include function instance startup (cold starts) can be slower than requests hitting existing function instances.
+
+- If your function receives steady load, however, then the number of cold starts is typically negligible unless your function frequently crashes and requires restarting of the function environment.
+
+---
 class: center, middle
 
-### Compute time
+### Function instance lifespan
+
+---
+class: center, middle
+
+A single function invocation results in executing only the body of the function declared as the entry point.
+
+---
+class: center, middle
+
+The global scope in the function file, which is expected to contain the function definition, is executed on every cold start, but not if the instance has already been initialized.
+
+---
+class: center, middle
+
+### Function execution timeline
+
+---
+class: center, middle
+
+A function has access to the resources requested (CPU and memory) only for the duration of function execution.
+
+---
+class: center, middle
+
+Code run outside of the execution period is not guaranteed to execute, and it can be stopped at any time.
+
+---
+class: center, middle
+
+### File system
+
+---
+class: center, middle
+
+The function execution environment contains a runnable function file, plus files and directories included in the deployed function package such as local dependencies.
+
+---
+class: center, middle
+
+### Multiple functions
+
+---
+class: center, middle
+
+Every deployed function is isolated from all other functions—even those deployed from the same source file.
 
 ---
 class: center, middle
@@ -1244,7 +1305,36 @@ class: center, middle
 ---
 class: center, middle
 
+### Limit Compute time
+
+---
+class: center, middle
+
 ### Tips & Tricks
+
+.content-credits[https://cloud.google.com/functions/docs/bestpractices/tips]
+
+---
+
+- Write idempotent functions
+
+- Ensure HTTP functions send an HTTP response
+
+- Do not start background activities
+
+- Always delete temporary files
+
+---
+
+- Do not throw uncaught exceptions
+
+- Cloud Functions does not allow outbound connections on port 25
+
+- load time for imported modules can add to the invocation latency
+
+- Use global variables to reuse objects in future invocations
+
+- lazy initialization of global variables
 
 ---
 class: center, middle
